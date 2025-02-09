@@ -45,12 +45,12 @@ contract SmartPayConstruction {
     event StageValidated(uint256 projectId, uint256 stageId, string validatorID);
     event ProjectClosed(uint256 id);
     event PaymentProcessed(uint256 projectId, uint256 stageId, uint256 amount);
-/*
-The createProject function is responsible for creating a new project in the smart 
-contract. It receives several parameters that define the project's properties, 
-such as ID, name, description, client ID, contractor, start and end dates, and a 
-list of stages.
- */
+/**
+ * The createProject function is responsible for creating a new project in the smart 
+ * contract. It receives several parameters that define the project's properties, 
+ * such as ID, name, description, client ID, contractor, start and end dates, and a 
+ * list of stages.
+*/
     function createProject(
         string memory _project_id,
         string memory _name,
@@ -84,12 +84,13 @@ list of stages.
         }
     }
 
-/*
+/**
  * The getStageById function is responsible for retrieving a specific stage of a project, 
  * given the project ID and the stage ID.
  * It is useful for viewing the progress and details of the stages of a project created 
  * by the createProject function.
 */
+
     function getStageById(string memory projectId, string memory stageId)
         public
         view
@@ -108,7 +109,8 @@ list of stages.
         }
         revert("Stage not found");
     }
-/*
+
+/** 
  * Returns the number of phases in a project.
  * Useful for getting an overview of the size and complexity of a project.
 */
@@ -116,10 +118,10 @@ list of stages.
         return projects[projectId].stages.length;
     }
 
-/*
+/**
  * Checks whether a phase has been validated by a specific validator.
  * Ensures that only authorized validators can validate phases, maintaining the integrity of the validation process.
- */
+*/
     function isStageValidatedByValidator(
         string memory _project_id,
         string memory _stage_id,
@@ -139,7 +141,7 @@ list of stages.
  * Checks whether a validator is authorized to validate a phase.
  * Maintains the security and compliance of the validation process by ensuring that only authorized 
  * validators can validate.
- */
+*/
     function isValidatorAllowedToValidate(
         string memory _project_id,
         string memory _stage_id,
@@ -228,7 +230,7 @@ list of stages.
 /**
  * Returns the total number of validations for a phase.
  * Used to monitor the validation progress of a phase, ensuring that all required validations are performed.
- */
+*/
     function getTotalValidators(string memory _project_id, string memory _stage_id) public view returns (uint256) {
         (Stage memory _stage,,) = getStageById(_project_id, _stage_id);
         return _stage.validations.length;
@@ -237,7 +239,7 @@ list of stages.
  * Returns the maximum number of validators required for a phase.
  * Sets the limit of validations required to complete a phase, ensuring that all validations are performed 
  * before proceeding.
- */
+*/
     function getMaxTotalValidators(string memory _project_id, string memory _stage_id) public view returns (uint256) {
         (Stage memory _stage,,) = getStageById(_project_id, _stage_id);
         return _stage.totalValidators;
@@ -284,15 +286,29 @@ list of stages.
         //validate the stage
         _stage.validations.push(_validator_id);
     }
-
+/**
+ * Processes pending payments for a stage (implementation not provided).
+ * Related to paying validators after stage validation, crucial for financial compensation.
+*/
     function processPendingPayments(uint256 projectId, uint256 stageId) external {}
 
+/**
+ * Closes a project (implementation not provided).
+ * Marks a project as complete, essential to the project lifecycle.
+*/
     function closeProject(uint256 projectId) external {}
 
+/**
+ * Returns all project IDs.
+ * Provides an overview of all existing projects, useful for management and auditing.
+*/
     function getAllProjectIds() external view returns (string[] memory) {
         return projectIds;
     }
-
+/**
+ * Returns all projects.
+ * Provides complete details of all projects, essential for visualization and analysis.
+*/
     function getProjects() external view returns (Project[] memory) {
         Project[] memory _projects = new Project[](projectIds.length);
         for (uint256 i = 0; i < projectIds.length; i++) {
@@ -301,6 +317,10 @@ list of stages.
         return _projects;
     }
 
+/**
+ * Returns the total count of projects.
+ * Provides a metric of how many projects there are, useful for reporting and data analysis.
+*/
     function getProjectsCount() external view returns (uint256) {
         return projectIds.length;
     }
