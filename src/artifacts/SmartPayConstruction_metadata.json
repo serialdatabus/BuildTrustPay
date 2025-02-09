@@ -1,0 +1,1027 @@
+{
+	"compiler": {
+		"version": "0.8.26+commit.8a97fa7a"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "projectId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "stageId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "PaymentProcessed",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					}
+				],
+				"name": "ProjectClosed",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "projectId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "stageId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "description",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "value",
+						"type": "uint256"
+					}
+				],
+				"name": "StageAdded",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "projectId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "stageId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "validatorID",
+						"type": "string"
+					}
+				],
+				"name": "StageValidated",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "projectId",
+						"type": "string"
+					},
+					{
+						"components": [
+							{
+								"internalType": "string",
+								"name": "stage_id",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "title",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "description",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "validation_steps",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "value",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string[]",
+								"name": "validators_ids",
+								"type": "string[]"
+							},
+							{
+								"internalType": "string[]",
+								"name": "validations",
+								"type": "string[]"
+							},
+							{
+								"internalType": "uint256",
+								"name": "totalValidators",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "amountToValidator",
+								"type": "uint256"
+							},
+							{
+								"internalType": "bool",
+								"name": "completed",
+								"type": "bool"
+							}
+						],
+						"internalType": "struct SmartPayConstruction.Stage",
+						"name": "_stage",
+						"type": "tuple"
+					}
+				],
+				"name": "addStage",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_project_id",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_stage_id",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_validator_id",
+						"type": "string"
+					}
+				],
+				"name": "addValidator",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_project_id",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_stage_id",
+						"type": "string"
+					},
+					{
+						"internalType": "string[]",
+						"name": "_validators_ids",
+						"type": "string[]"
+					}
+				],
+				"name": "addValidators",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "agencyId",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "projectId",
+						"type": "uint256"
+					}
+				],
+				"name": "closeProject",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "a",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "b",
+						"type": "string"
+					}
+				],
+				"name": "compareStrings",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "pure",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_project_id",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_description",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_client_id",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_contractor",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_startDate",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_endDate",
+						"type": "uint256"
+					},
+					{
+						"components": [
+							{
+								"internalType": "string",
+								"name": "stage_id",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "title",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "description",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "validation_steps",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "value",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string[]",
+								"name": "validators_ids",
+								"type": "string[]"
+							},
+							{
+								"internalType": "string[]",
+								"name": "validations",
+								"type": "string[]"
+							},
+							{
+								"internalType": "uint256",
+								"name": "totalValidators",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "amountToValidator",
+								"type": "uint256"
+							},
+							{
+								"internalType": "bool",
+								"name": "completed",
+								"type": "bool"
+							}
+						],
+						"internalType": "struct SmartPayConstruction.Stage[]",
+						"name": "_stages",
+						"type": "tuple[]"
+					}
+				],
+				"name": "createProject",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getAllProjectIds",
+				"outputs": [
+					{
+						"internalType": "string[]",
+						"name": "",
+						"type": "string[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_project_id",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_stage_id",
+						"type": "string"
+					}
+				],
+				"name": "getMaxTotalValidators",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getProjects",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "string",
+								"name": "project_id",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "name",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "description",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "client_id",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "contractor",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "creationDate",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "startDate",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "endDate",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "actualCompletionDate",
+								"type": "uint256"
+							},
+							{
+								"internalType": "bool",
+								"name": "closed",
+								"type": "bool"
+							},
+							{
+								"components": [
+									{
+										"internalType": "string",
+										"name": "stage_id",
+										"type": "string"
+									},
+									{
+										"internalType": "string",
+										"name": "title",
+										"type": "string"
+									},
+									{
+										"internalType": "string",
+										"name": "description",
+										"type": "string"
+									},
+									{
+										"internalType": "string",
+										"name": "validation_steps",
+										"type": "string"
+									},
+									{
+										"internalType": "uint256",
+										"name": "value",
+										"type": "uint256"
+									},
+									{
+										"internalType": "string[]",
+										"name": "validators_ids",
+										"type": "string[]"
+									},
+									{
+										"internalType": "string[]",
+										"name": "validations",
+										"type": "string[]"
+									},
+									{
+										"internalType": "uint256",
+										"name": "totalValidators",
+										"type": "uint256"
+									},
+									{
+										"internalType": "uint256",
+										"name": "amountToValidator",
+										"type": "uint256"
+									},
+									{
+										"internalType": "bool",
+										"name": "completed",
+										"type": "bool"
+									}
+								],
+								"internalType": "struct SmartPayConstruction.Stage[]",
+								"name": "stages",
+								"type": "tuple[]"
+							}
+						],
+						"internalType": "struct SmartPayConstruction.Project[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getProjectsCount",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "projectId",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "stageId",
+						"type": "string"
+					}
+				],
+				"name": "getStageById",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "string",
+								"name": "stage_id",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "title",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "description",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "validation_steps",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "value",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string[]",
+								"name": "validators_ids",
+								"type": "string[]"
+							},
+							{
+								"internalType": "string[]",
+								"name": "validations",
+								"type": "string[]"
+							},
+							{
+								"internalType": "uint256",
+								"name": "totalValidators",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "amountToValidator",
+								"type": "uint256"
+							},
+							{
+								"internalType": "bool",
+								"name": "completed",
+								"type": "bool"
+							}
+						],
+						"internalType": "struct SmartPayConstruction.Stage",
+						"name": "s",
+						"type": "tuple"
+					},
+					{
+						"internalType": "bool",
+						"name": "found",
+						"type": "bool"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "projectId",
+						"type": "string"
+					}
+				],
+				"name": "getStagesCount",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_project_id",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_stage_id",
+						"type": "string"
+					}
+				],
+				"name": "getTotalValidators",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_project_id",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_stage_id",
+						"type": "string"
+					}
+				],
+				"name": "getValidatorsIds",
+				"outputs": [
+					{
+						"internalType": "string[]",
+						"name": "",
+						"type": "string[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_project_id",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_stage_id",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_validator_id",
+						"type": "string"
+					}
+				],
+				"name": "isStageValidatedByValidator",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_project_id",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_stage_id",
+						"type": "string"
+					}
+				],
+				"name": "isThereEnoughValidators",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_project_id",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_stage_id",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_validator_id",
+						"type": "string"
+					}
+				],
+				"name": "isValidatorAllowedToValidate",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "projectId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "stageId",
+						"type": "uint256"
+					}
+				],
+				"name": "processPendingPayments",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "projectIds",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"name": "projects",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "project_id",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "description",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "client_id",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "contractor",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "creationDate",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "startDate",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "endDate",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "actualCompletionDate",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "closed",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_project_id",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_stage_id",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_validator_id",
+						"type": "string"
+					}
+				],
+				"name": "validateStage",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_project_id",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_stage_id",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_validator_id",
+						"type": "string"
+					}
+				],
+				"name": "validatorWasAlreadyAdded",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {
+				"addStage(string,(string,string,string,string,uint256,string[],string[],uint256,uint256,bool))": {
+					"notice": "Adds a new phase to an existing project. Allows you to expand a project with new phases, essential for evolving projects. "
+				},
+				"addValidator(string,string,string)": {
+					"notice": "Adds a validator to a phase. Allows for expansion of the list of validators, ensuring there are enough validators to validate a phase."
+				},
+				"addValidators(string,string,string[])": {
+					"notice": "Adds multiple validators to a phase. Facilitates bulk addition of validators, speeding up the validator setup process."
+				},
+				"closeProject(uint256)": {
+					"notice": "Closes a project (implementation not provided). Marks a project as complete, essential to the project lifecycle."
+				},
+				"compareStrings(string,string)": {
+					"notice": "Used internally to compare project IDs and phases, ensuring accuracy of operations."
+				},
+				"createProject(string,string,string,string,string,uint256,uint256,(string,string,string,string,uint256,string[],string[],uint256,uint256,bool)[])": {
+					"notice": "The createProject function is responsible for creating a new project in the smart  contract. It receives several parameters that define the project's properties,  such as ID, name, description, client ID, contractor, start and end dates, and a  list of stages."
+				},
+				"getAllProjectIds()": {
+					"notice": "Returns all project IDs. Provides an overview of all existing projects, useful for management and auditing."
+				},
+				"getMaxTotalValidators(string,string)": {
+					"notice": "Returns the maximum number of validators required for a phase. Sets the limit of validations required to complete a phase, ensuring that all validations are performed  before proceeding."
+				},
+				"getProjects()": {
+					"notice": "Returns all projects. Provides complete details of all projects, essential for visualization and analysis."
+				},
+				"getProjectsCount()": {
+					"notice": "Returns the total count of projects. Provides a metric of how many projects there are, useful for reporting and data analysis."
+				},
+				"getStageById(string,string)": {
+					"notice": "The getStageById function is responsible for retrieving a specific stage of a project,  given the project ID and the stage ID. It is useful for viewing the progress and details of the stages of a project created  by the createProject function."
+				},
+				"getStagesCount(string)": {
+					"notice": "Returns the number of phases in a project. Useful for getting an overview of the size and complexity of a project."
+				},
+				"getTotalValidators(string,string)": {
+					"notice": "Returns the total number of validations for a phase. Used to monitor the validation progress of a phase, ensuring that all required validations are performed."
+				},
+				"getValidatorsIds(string,string)": {
+					"notice": "Returns the list of validator IDs for a phase. Provides information about the validators in a phase, essential for audits and verifications."
+				},
+				"isStageValidatedByValidator(string,string,string)": {
+					"notice": "Checks whether a phase has been validated by a specific validator. Ensures that only authorized validators can validate phases, maintaining the integrity of the validation process."
+				},
+				"isThereEnoughValidators(string,string)": {
+					"notice": "Checks if there are enough validators to validate a phase. Ensures that a phase has enough validators before allowing validations, ensuring the integrity of the process."
+				},
+				"isValidatorAllowedToValidate(string,string,string)": {
+					"notice": "Checks whether a validator is authorized to validate a phase. Maintains the security and compliance of the validation process by ensuring that only authorized  validators can validate."
+				},
+				"processPendingPayments(uint256,uint256)": {
+					"notice": "Processes pending payments for a stage (implementation not provided). Related to paying validators after stage validation, crucial for financial compensation."
+				},
+				"validateStage(string,string,string)": {
+					"notice": "Validates a phase by a validator. Updates the validation status of a phase, essential for the progress of the project."
+				},
+				"validatorWasAlreadyAdded(string,string,string)": {
+					"notice": "Checks whether a validator has already been added to a phase. Avoids duplication of validators, ensuring the efficiency of the validation process."
+				}
+			},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"src/BuiltTrustPay.sol": "SmartPayConstruction"
+		},
+		"evmVersion": "cancun",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"src/BuiltTrustPay.sol": {
+			"keccak256": "0x6d930d3722e0b1acac3b317c0ba10240141d477180c15f810d731053fff0fa42",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://cc1926997a21ac38d58e97cbca6e42b2814229925a0c0ce12520fd15c28f30a8",
+				"dweb:/ipfs/QmRoFgxYkvX2zcT68QbLpN21dHBasPm9jG85G6mSz3fYB4"
+			]
+		}
+	},
+	"version": 1
+}

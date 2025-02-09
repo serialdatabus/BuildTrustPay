@@ -163,7 +163,6 @@ contract SmartPayConstruction {
 */
     function addValidator(string memory _project_id, string memory _stage_id, string memory _validator_id) public {
         Project storage _project = projects[_project_id];
-        // (,, uint256 stageIndex) = getStageById(_project_id, _project_id);
         (,, uint256 stageIndex) = getStageById(_project_id, _stage_id);
 
         Stage storage _stage = _project.stages[stageIndex];
