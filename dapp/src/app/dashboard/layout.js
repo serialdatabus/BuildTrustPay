@@ -44,7 +44,7 @@ export default function DashboardLayout({ children }) {
                 <span className="ml-2">{item.name}</span>
             </a> ))}
       </div>
-      <div>{children}</div>
+      <div className="overflow-y-auto w-full">{children}</div>
     </div>
   );
 }

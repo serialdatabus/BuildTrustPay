@@ -10,5 +10,34 @@ datasource db {
 model User {
   id    Int    @id @default(autoincrement())
   name  String
+  last_name String
+  password String
   email String @unique
+  wallet_address String
+}
+
+model Project {
+  id    Int    @id @default(autoincrement())
+  name  String
+  description String
+  client_id String @unique
+  contractor String
+  creation_date Int
+  start_dtae Int
+  end_date Int
+  closed Boolean
+  actual_completion_date Int
+}
+
+model Stage {
+  id    Int    @id @default(autoincrement())
+  name  String
+  description String
+  project_id Int
+  start_date Int
+  end_date Int
+  closed Boolean
+  actual_completion_date Int
+  total_validators Int
+  amount_per_validator Int
 }
