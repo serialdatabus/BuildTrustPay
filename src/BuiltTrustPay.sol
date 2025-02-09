@@ -18,13 +18,8 @@ contract SmartPayConstruction {
     }
 
     /*
-
-
+    Exaple params stages:
     [[["stage1","Design Phase","QmHashDescription1","QmHashSteps1",1000,["Validator1","Validator2"],["Validator1"],2,500,false],["stage2","Implementation Phase","QmHashDescription2","QmHashSteps2",2000,["Validator3","Validator4"],[],2,1000,false]]
-
-    [["Design Phase","QmHashDescription1","QmHashSteps1",1000,["Validator1","Validator2"],["Validator1"],false],["Implementation Phase","QmHashDescription2","QmHashSteps2",2000,["Validator3","Validator4"],[],false]]
-
-    [["id1","Design Phase","QmHashDescription1","QmHashSteps1",1000,["Validator1","Validator2"],["Validator1"],false],["id2","Implementation Phase","QmHashDescription2","QmHashSteps2",2000,["Validator3","Validator4"],[],false]]
     */
 
     struct Project {
