@@ -167,11 +167,11 @@ contract SmartPayConstruction {
         view
         returns (bool)
     {
-        string[] memory valiators_ids = getValidatorsIds(_project_id, _stage_id);
+        string[] memory validators_ids = getValidatorsIds(_project_id, _stage_id);
 
-        for (uint256 i = 0; i < valiators_ids.length; i++) {
+        for (uint256 i = 0; i < validators_ids.length; i++) {
             //If already validated returns true
-            if (compareStrings(_validator_id, valiators_ids[i])) {
+            if (compareStrings(_validator_id, validators_ids[i])) {
                 return true;
             }
         }
