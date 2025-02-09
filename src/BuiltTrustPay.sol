@@ -14,7 +14,7 @@ contract SmartPayConstruction {
         string[] validators_ids; // List of validors that need to approve the milestone
         string[] validations; // List of validators that already validated
         uint256 total_validators; // Number of validators for this stage
-        uint256 amountPerValidator; //The total ammount that we should pay to the validator
+        uint256 amount_per_validator; //The total ammount that we should pay to the validator
         bool completed;
     }
 
