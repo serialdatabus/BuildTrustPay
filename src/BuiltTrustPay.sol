@@ -296,40 +296,19 @@ contract SmartPayConstruction {
 
     function closeProject(uint256 projectId) external {}
 
-    function getProjectDetails(uint256 projectId)
-        external
-        view
-        returns (
-            string memory,
-            string memory,
-            string memory,
-            string memory,
-            uint256,
-            uint256,
-            uint256,
-            bool
-        )
-    {}
 
-    function getProjectWithStages(uint256 projectId)
-        external
-        view
-        returns (
-            string memory,
-            string memory,
-            string memory,
-            string memory,
-            uint256,
-            uint256,
-            uint256,
-            bool,
-            uint256[] memory,
-            string[] memory
-        )
-    {}
 
     function getAllProjectIds() external view returns (string[] memory) {
         return projectIds;
+    }
+
+
+      function getProjects() external view returns (Project[] memory) {
+        Project[] memory _projects = new Project[](projectIds.length);
+        for (uint256 i = 0; i < projectIds.length; i++) {
+            _projects[i] = projects[projectIds[i]];
+        }
+        return _projects;
     }
 
     function getProjectsCount() external view returns (uint256) {
