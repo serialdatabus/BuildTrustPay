@@ -13,8 +13,8 @@ contract SmartPayConstruction {
         uint256 value; // value to pay based on currency
         string[] validators_ids; // List of validors that need to approve the milestone
         string[] validations; // List of validators that already validated
-        uint256 totalValidators; // Number of validators for this stage
-        uint256 amountToValidator; //The total ammount that we should pay to the validator
+        uint256 total_validators; // Number of validators for this stage
+        uint256 amountPerValidator; //The total ammount that we should pay to the validator
         bool completed;
     }
 
@@ -241,7 +241,7 @@ contract SmartPayConstruction {
 */
     function getMaxTotalValidators(string memory _project_id, string memory _stage_id) public view returns (uint256) {
         (Stage memory _stage,,) = getStageById(_project_id, _stage_id);
-        return _stage.totalValidators;
+        return _stage.total_validators;
     }
 
 /**
@@ -276,7 +276,7 @@ contract SmartPayConstruction {
         );
 
         // we add +1 because the contractor shoud validate a well
-        require(_stage.validations.length < _stage.totalValidators + 1, "Already validated");
+        require(_stage.validations.length < _stage.total_validators + 1, "Already validated");
 
         //verify if validator alreadyvalidated the stage, if yes it should reert
         require(!isStageValidatedByValidator(_project_id, _stage_id, _validator_id), "Cant validate more than once");
