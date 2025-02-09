@@ -20,12 +20,12 @@ contract SmartPayConstruction {
     /*
 
 
-[[["stage1","Design Phase","QmHashDescription1","QmHashSteps1",1000,["Validator1","Validator2"],["Validator1"],2,500,false],["stage2","Implementation Phase","QmHashDescription2","QmHashSteps2",2000,["Validator3","Validator4"],[],2,1000,false]]
+    [[["stage1","Design Phase","QmHashDescription1","QmHashSteps1",1000,["Validator1","Validator2"],["Validator1"],2,500,false],["stage2","Implementation Phase","QmHashDescription2","QmHashSteps2",2000,["Validator3","Validator4"],[],2,1000,false]]
 
-[["Design Phase","QmHashDescription1","QmHashSteps1",1000,["Validator1","Validator2"],["Validator1"],false],["Implementation Phase","QmHashDescription2","QmHashSteps2",2000,["Validator3","Validator4"],[],false]]
+    [["Design Phase","QmHashDescription1","QmHashSteps1",1000,["Validator1","Validator2"],["Validator1"],false],["Implementation Phase","QmHashDescription2","QmHashSteps2",2000,["Validator3","Validator4"],[],false]]
 
-[["id1","Design Phase","QmHashDescription1","QmHashSteps1",1000,["Validator1","Validator2"],["Validator1"],false],["id2","Implementation Phase","QmHashDescription2","QmHashSteps2",2000,["Validator3","Validator4"],[],false]]
- */
+    [["id1","Design Phase","QmHashDescription1","QmHashSteps1",1000,["Validator1","Validator2"],["Validator1"],false],["id2","Implementation Phase","QmHashDescription2","QmHashSteps2",2000,["Validator3","Validator4"],[],false]]
+    */
 
     struct Project {
         string project_id;
@@ -44,17 +44,8 @@ contract SmartPayConstruction {
     mapping(string => Project) public projects;
     string[] public projectIds;
 
-    event StageAdded(
-        uint256 projectId,
-        uint256 stageId,
-        string description,
-        uint256 value
-    );
-    event StageValidated(
-        uint256 projectId,
-        uint256 stageId,
-        string validatorID
-    );
+    event StageAdded(uint256 projectId, uint256 stageId, string description, uint256 value);
+    event StageValidated(uint256 projectId, uint256 stageId, string validatorID);
     event ProjectClosed(uint256 id);
     event PaymentProcessed(uint256 projectId, uint256 stageId, uint256 amount);
 
@@ -94,11 +85,7 @@ contract SmartPayConstruction {
     function getStageById(string memory projectId, string memory stageId)
         public
         view
-        returns (
-            Stage memory s,
-            bool found,
-            uint256
-        )
+        returns (Stage memory s, bool found, uint256)
     {
         Project memory selectedProject = projects[projectId];
 
@@ -115,11 +102,7 @@ contract SmartPayConstruction {
         revert("Stage not found");
     }
 
-    function getStagesCount(string memory projectId)
-        external
-        view
-        returns (uint256)
-    {
+    function getStagesCount(string memory projectId) external view returns (uint256) {
         return projects[projectId].stages.length;
     }
 
@@ -128,7 +111,7 @@ contract SmartPayConstruction {
         string memory _stage_id,
         string memory _validator_id
     ) public view returns (bool) {
-        (Stage memory _stage, , ) = getStageById(_project_id, _stage_id);
+        (Stage memory _stage,,) = getStageById(_project_id, _stage_id);
 
         for (uint256 i = 0; i < _stage.validations.length; i++) {
             //If already validated returns true
@@ -145,7 +128,7 @@ contract SmartPayConstruction {
         string memory _stage_id,
         string memory _validator_id
     ) public view returns (bool) {
-        (Stage memory _stage, , ) = getStageById(_project_id, _stage_id);
+        (Stage memory _stage,,) = getStageById(_project_id, _stage_id);
 
         for (uint256 i = 0; i < _stage.validators_ids.length; i++) {
             //If already validated returns true
@@ -157,59 +140,39 @@ contract SmartPayConstruction {
         return false;
     }
 
-    function addValidator(
-        string memory _project_id,
-        string memory _stage_id,
-        string memory _validator_id
-    ) public {
+    function addValidator(string memory _project_id, string memory _stage_id, string memory _validator_id) public {
         Project storage _project = projects[_project_id];
-        (, , uint256 stageIndex) = getStageById(_project_id, _project_id);
+        (,, uint256 stageIndex) = getStageById(_project_id, _project_id);
 
         Stage storage _stage = _project.stages[stageIndex];
 
         //vetify if the was already added
-        require(
-            isValidatorAllowedToValidate(_project_id, _stage_id, _validator_id),
-            "validator was already added"
-        );
+        require(isValidatorAllowedToValidate(_project_id, _stage_id, _validator_id), "validator was already added");
 
         //verify if we can still add validators if still there is not enough validators
-        require(
-            !isThereEnoughValidators(_project_id, _stage_id),
-            "Already enough validators to validate the stage"
-        );
+        require(!isThereEnoughValidators(_project_id, _stage_id), "Already enough validators to validate the stage");
 
         _stage.validators_ids.push(_validator_id);
     }
 
-    function isThereEnoughValidators(
-        string memory _project_id,
-        string memory _stage_id
-    ) public view returns (bool) {
-        return
-            getTotalValidators(_project_id, _stage_id) >=
-            getMaxTotalValidators(_project_id, _stage_id);
+    function isThereEnoughValidators(string memory _project_id, string memory _stage_id) public view returns (bool) {
+        return getTotalValidators(_project_id, _stage_id) >= getMaxTotalValidators(_project_id, _stage_id);
     }
 
-    function addValidators(
-        string memory _project_id,
-        string memory _stage_id,
-        string[] memory _validators_ids
-    ) public {
+    function addValidators(string memory _project_id, string memory _stage_id, string[] memory _validators_ids)
+        public
+    {
         for (uint256 i = 0; i < _validators_ids.length; i++) {
             addValidator(_project_id, _stage_id, _validators_ids[i]);
         }
     }
 
-    function validatorWasAlreadyAdded(
-        string memory _project_id,
-        string memory _stage_id,
-        string memory _validator_id
-    ) public view returns (bool) {
-        string[] memory valiators_ids = getValidatorsIds(
-            _project_id,
-            _stage_id
-        );
+    function validatorWasAlreadyAdded(string memory _project_id, string memory _stage_id, string memory _validator_id)
+        public
+        view
+        returns (bool)
+    {
+        string[] memory valiators_ids = getValidatorsIds(_project_id, _stage_id);
 
         for (uint256 i = 0; i < valiators_ids.length; i++) {
             //If already validated returns true
@@ -221,27 +184,22 @@ contract SmartPayConstruction {
         return false;
     }
 
-    function getValidatorsIds(
-        string memory _project_id,
-        string memory _stage_id
-    ) public view returns (string[] memory) {
-        (Stage memory _stage, , ) = getStageById(_project_id, _stage_id);
+    function getValidatorsIds(string memory _project_id, string memory _stage_id)
+        public
+        view
+        returns (string[] memory)
+    {
+        (Stage memory _stage,,) = getStageById(_project_id, _stage_id);
         return _stage.validators_ids;
     }
 
-    function getTotalValidators(
-        string memory _project_id,
-        string memory _stage_id
-    ) public view returns (uint256) {
-        (Stage memory _stage, , ) = getStageById(_project_id, _stage_id);
+    function getTotalValidators(string memory _project_id, string memory _stage_id) public view returns (uint256) {
+        (Stage memory _stage,,) = getStageById(_project_id, _stage_id);
         return _stage.validations.length;
     }
 
-    function getMaxTotalValidators(
-        string memory _project_id,
-        string memory _stage_id
-    ) public view returns (uint256) {
-        (Stage memory _stage, , ) = getStageById(_project_id, _stage_id);
+    function getMaxTotalValidators(string memory _project_id, string memory _stage_id) public view returns (uint256) {
+        (Stage memory _stage,,) = getStageById(_project_id, _stage_id);
         return _stage.totalValidators;
     }
 
@@ -249,61 +207,41 @@ contract SmartPayConstruction {
         projects[projectId].stages.push(_stage);
     }
 
-    function compareStrings(string memory a, string memory b)
-        public
-        pure
-        returns (bool)
-    {
+    function compareStrings(string memory a, string memory b) public pure returns (bool) {
         return keccak256(abi.encodePacked(a)) == keccak256(abi.encodePacked(b));
     }
 
-    function validateStage(
-        string memory _project_id,
-        string memory _stage_id,
-        string memory _validator_id
-    ) external {
+    function validateStage(string memory _project_id, string memory _stage_id, string memory _validator_id) external {
         Stage storage _stage;
 
-        (, , uint256 stageIndex) = getStageById(_project_id, _stage_id);
+        (,, uint256 stageIndex) = getStageById(_project_id, _stage_id);
 
         //get the proper stage from the selected project id
         _stage = projects[_project_id].stages[stageIndex];
 
         require(
-            isValidatorAllowedToValidate(_project_id, _stage_id, _validator_id),
-            "Validator is not allowed to validate"
+            isValidatorAllowedToValidate(_project_id, _stage_id, _validator_id), "Validator is not allowed to validate"
         );
 
         // we add +1 because the contractor shoud validate a well
-        require(
-            _stage.validations.length < _stage.totalValidators + 1,
-            "Already validated"
-        );
+        require(_stage.validations.length < _stage.totalValidators + 1, "Already validated");
 
         //verify if validator alreadyvalidated the stage, if yes it should reert
-        require(
-            !isStageValidatedByValidator(_project_id, _stage_id, _validator_id),
-            "Cant validate more than once"
-        );
+        require(!isStageValidatedByValidator(_project_id, _stage_id, _validator_id), "Cant validate more than once");
 
         //validate the stage
         _stage.validations.push(_validator_id);
     }
 
-    function processPendingPayments(uint256 projectId, uint256 stageId)
-        external
-    {}
+    function processPendingPayments(uint256 projectId, uint256 stageId) external {}
 
     function closeProject(uint256 projectId) external {}
-
-
 
     function getAllProjectIds() external view returns (string[] memory) {
         return projectIds;
     }
 
-
-      function getProjects() external view returns (Project[] memory) {
+    function getProjects() external view returns (Project[] memory) {
         Project[] memory _projects = new Project[](projectIds.length);
         for (uint256 i = 0; i < projectIds.length; i++) {
             _projects[i] = projects[projectIds[i]];
