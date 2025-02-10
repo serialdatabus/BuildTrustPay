@@ -2,6 +2,7 @@
 import { TbContract } from "react-icons/tb";
 import { useEffect, useState } from "react";
 import { getProjects } from "@/app/helpers";
+import { SessionProvider } from "next-auth/react";
 
 export default function Projects() {
   const [projects, setProjects] = useState([]);
