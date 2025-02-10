@@ -20,19 +20,23 @@ model Project {
   id    Int    @id @default(autoincrement())
   name  String
   description String
-  client_id String @unique
+  client_id String
   contractor String
   creation_date Int
+  currency String
   start_date Int
   end_date Int
   closed Boolean
   actual_completion_date Int
+  type String
 }
 
 model Stage {
   id    Int    @id @default(autoincrement())
+  edit_id Int
   name  String
   description String
+  validation_steps String
   project_id Int
   start_date Int
   end_date Int

@@ -1,13 +1,16 @@
 "use client";
 import { useEffect, useState } from "react";
-import { getProjects } from "@/app/helpers";
-import Project from "./shared/ProjectComponent";
+import { getDraftprojects, getProjects } from "@/app/helpers";
+import Project from "../shared/ProjectComponent";
 
-export default function Projects() {
+export default function DraftProjects() {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    getProjects().then((response) => setProjects(response));
+    getDraftprojects().then((response) => {
+      console.log({response});
+      setProjects(response); 
+  });
   }, []);
 
   return (
@@ -23,7 +26,7 @@ export default function Projects() {
         </div>
       <div className="grid grid-cols-8 gap-8 mt-4">
         {projects.map((project) => (
-          <Project key={project.id} project_id={project.id} project={project} />
+          <Project key={project.id} project={project} />
         ))}
       </div>
     </div>
