@@ -42,105 +42,11 @@ export async function getDraftprojects(id = 0) {
 export function getContractABI() {
   return [
     {
-      "anonymous": false,
       "inputs": [
         {
-          "indexed": false,
           "internalType": "uint256",
           "name": "projectId",
           "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "stageId",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "amount",
-          "type": "uint256"
-        }
-      ],
-      "name": "PaymentProcessed",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "id",
-          "type": "uint256"
-        }
-      ],
-      "name": "ProjectClosed",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "projectId",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "stageId",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "string",
-          "name": "description",
-          "type": "string"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "value",
-          "type": "uint256"
-        }
-      ],
-      "name": "StageAdded",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "projectId",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "stageId",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "string",
-          "name": "validatorID",
-          "type": "string"
-        }
-      ],
-      "name": "StageValidated",
-      "type": "event"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "string",
-          "name": "projectId",
-          "type": "string"
         },
         {
           "components": [
@@ -208,9 +114,9 @@ export function getContractABI() {
     {
       "inputs": [
         {
-          "internalType": "string",
+          "internalType": "uint256",
           "name": "_project_id",
-          "type": "string"
+          "type": "uint256"
         },
         {
           "internalType": "string",
@@ -231,9 +137,9 @@ export function getContractABI() {
     {
       "inputs": [
         {
-          "internalType": "string",
+          "internalType": "uint256",
           "name": "_project_id",
-          "type": "string"
+          "type": "uint256"
         },
         {
           "internalType": "string",
@@ -252,19 +158,6 @@ export function getContractABI() {
       "type": "function"
     },
     {
-      "inputs": [],
-      "name": "agencyId",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
       "inputs": [
         {
           "internalType": "uint256",
@@ -279,35 +172,6 @@ export function getContractABI() {
     },
     {
       "inputs": [
-        {
-          "internalType": "string",
-          "name": "a",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "b",
-          "type": "string"
-        }
-      ],
-      "name": "compareStrings",
-      "outputs": [
-        {
-          "internalType": "bool",
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "stateMutability": "pure",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "string",
-          "name": "_project_id",
-          "type": "string"
-        },
         {
           "internalType": "string",
           "name": "_name",
@@ -397,18 +261,159 @@ export function getContractABI() {
         }
       ],
       "name": "createProject",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "projectId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "stageId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "PaymentProcessed",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "projectId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "stageId",
+          "type": "uint256"
+        }
+      ],
+      "name": "processPendingPayments",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "id",
+          "type": "uint256"
+        }
+      ],
+      "name": "ProjectClosed",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "projectId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "stageId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "description",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "value",
+          "type": "uint256"
+        }
+      ],
+      "name": "StageAdded",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "projectId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "stageId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "validatorID",
+          "type": "string"
+        }
+      ],
+      "name": "StageValidated",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_project_id",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "_stage_id",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_validator_id",
+          "type": "string"
+        }
+      ],
+      "name": "validateStage",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
     },
     {
       "inputs": [],
-      "name": "getAllProjectIds",
+      "name": "agencyId",
       "outputs": [
         {
-          "internalType": "string[]",
+          "internalType": "string",
           "name": "",
-          "type": "string[]"
+          "type": "string"
         }
       ],
       "stateMutability": "view",
@@ -418,8 +423,45 @@ export function getContractABI() {
       "inputs": [
         {
           "internalType": "string",
-          "name": "_project_id",
+          "name": "a",
           "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "b",
+          "type": "string"
+        }
+      ],
+      "name": "compareStrings",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getAllProjectIds",
+      "outputs": [
+        {
+          "internalType": "uint256[]",
+          "name": "",
+          "type": "uint256[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_project_id",
+          "type": "uint256"
         },
         {
           "internalType": "string",
@@ -439,15 +481,143 @@ export function getContractABI() {
       "type": "function"
     },
     {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "id",
+          "type": "uint256"
+        }
+      ],
+      "name": "getProjectById",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "project_id",
+              "type": "uint256"
+            },
+            {
+              "internalType": "string",
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "description",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "client_id",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "contractor",
+              "type": "string"
+            },
+            {
+              "internalType": "uint256",
+              "name": "creationDate",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "startDate",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "endDate",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "actualCompletionDate",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bool",
+              "name": "closed",
+              "type": "bool"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "string",
+                  "name": "stage_id",
+                  "type": "string"
+                },
+                {
+                  "internalType": "string",
+                  "name": "title",
+                  "type": "string"
+                },
+                {
+                  "internalType": "string",
+                  "name": "description",
+                  "type": "string"
+                },
+                {
+                  "internalType": "string",
+                  "name": "validation_steps",
+                  "type": "string"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "value",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "string[]",
+                  "name": "validators_ids",
+                  "type": "string[]"
+                },
+                {
+                  "internalType": "string[]",
+                  "name": "validations",
+                  "type": "string[]"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "total_validators",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "amount_per_validator",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "completed",
+                  "type": "bool"
+                }
+              ],
+              "internalType": "struct SmartPayConstruction.Stage[]",
+              "name": "stages",
+              "type": "tuple[]"
+            }
+          ],
+          "internalType": "struct SmartPayConstruction.Project",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
       "inputs": [],
       "name": "getProjects",
       "outputs": [
         {
           "components": [
             {
-              "internalType": "string",
+              "internalType": "uint256",
               "name": "project_id",
-              "type": "string"
+              "type": "uint256"
             },
             {
               "internalType": "string",
@@ -576,9 +746,9 @@ export function getContractABI() {
     {
       "inputs": [
         {
-          "internalType": "string",
+          "internalType": "uint256",
           "name": "projectId",
-          "type": "string"
+          "type": "uint256"
         },
         {
           "internalType": "string",
@@ -662,9 +832,9 @@ export function getContractABI() {
     {
       "inputs": [
         {
-          "internalType": "string",
+          "internalType": "uint256",
           "name": "projectId",
-          "type": "string"
+          "type": "uint256"
         }
       ],
       "name": "getStagesCount",
@@ -681,9 +851,9 @@ export function getContractABI() {
     {
       "inputs": [
         {
-          "internalType": "string",
+          "internalType": "uint256",
           "name": "_project_id",
-          "type": "string"
+          "type": "uint256"
         },
         {
           "internalType": "string",
@@ -705,9 +875,9 @@ export function getContractABI() {
     {
       "inputs": [
         {
-          "internalType": "string",
+          "internalType": "uint256",
           "name": "_project_id",
-          "type": "string"
+          "type": "uint256"
         },
         {
           "internalType": "string",
@@ -729,9 +899,9 @@ export function getContractABI() {
     {
       "inputs": [
         {
-          "internalType": "string",
+          "internalType": "uint256",
           "name": "_project_id",
-          "type": "string"
+          "type": "uint256"
         },
         {
           "internalType": "string",
@@ -758,9 +928,9 @@ export function getContractABI() {
     {
       "inputs": [
         {
-          "internalType": "string",
+          "internalType": "uint256",
           "name": "_project_id",
-          "type": "string"
+          "type": "uint256"
         },
         {
           "internalType": "string",
@@ -782,9 +952,9 @@ export function getContractABI() {
     {
       "inputs": [
         {
-          "internalType": "string",
+          "internalType": "uint256",
           "name": "_project_id",
-          "type": "string"
+          "type": "uint256"
         },
         {
           "internalType": "string",
@@ -812,24 +982,6 @@ export function getContractABI() {
       "inputs": [
         {
           "internalType": "uint256",
-          "name": "projectId",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "stageId",
-          "type": "uint256"
-        }
-      ],
-      "name": "processPendingPayments",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
           "name": "",
           "type": "uint256"
         }
@@ -837,9 +989,9 @@ export function getContractABI() {
       "name": "projectIds",
       "outputs": [
         {
-          "internalType": "string",
+          "internalType": "uint256",
           "name": "",
-          "type": "string"
+          "type": "uint256"
         }
       ],
       "stateMutability": "view",
@@ -848,17 +1000,17 @@ export function getContractABI() {
     {
       "inputs": [
         {
-          "internalType": "string",
+          "internalType": "uint256",
           "name": "",
-          "type": "string"
+          "type": "uint256"
         }
       ],
       "name": "projects",
       "outputs": [
         {
-          "internalType": "string",
+          "internalType": "uint256",
           "name": "project_id",
-          "type": "string"
+          "type": "uint256"
         },
         {
           "internalType": "string",
@@ -912,32 +1064,9 @@ export function getContractABI() {
     {
       "inputs": [
         {
-          "internalType": "string",
+          "internalType": "uint256",
           "name": "_project_id",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_stage_id",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_validator_id",
-          "type": "string"
-        }
-      ],
-      "name": "validateStage",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "string",
-          "name": "_project_id",
-          "type": "string"
+          "type": "uint256"
         },
         {
           "internalType": "string",
@@ -965,10 +1094,12 @@ export function getContractABI() {
 }
 
 
-export async function getPublishedProjectsFromBlockchain(session_user_id){
-
-  
-
+export async function getPublishedProjects(session_user_id){
+  //fetch the published projects from the api/projects/pulished route with the param user id
+  const response = await fetch("/api/projects/published?user_id="+session_user_id);
+  const data = await response.json();
+  console.log({ data });
+  return data ?? [];
 }
 
 

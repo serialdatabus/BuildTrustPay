@@ -1,13 +1,13 @@
 "use client";
 import { useEffect, useState } from "react";
-import { getDraftprojects, getProjects } from "@/app/helpers";
+import { getDraftprojects, getProjects, getPublishedProjects } from "@/app/helpers";
 import Project from "../shared/ProjectComponent";
 
 export default function DraftProjects() {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    getDraftprojects().then((response) => {
+    getPublishedProjects(2).then((response) => {
       console.log({response});
       setProjects(response); 
   });

@@ -116,7 +116,6 @@ export default function EditProject({ contract_address, edit_project_id }) {
 
   async function getContract() {
     if (!window.ethereum) throw new Error("MetaMask not detected!");
-
     const provider = new ethers.BrowserProvider(window.ethereum);
     const signer = await provider.getSigner();
     return new ethers.Contract(contract_address, contractABI, signer);
@@ -143,7 +142,6 @@ export default function EditProject({ contract_address, edit_project_id }) {
       //publish project calling blockchain createMethod
       const contract = await getContract();
       const tx = await contract.createProject(
-        "2222",
         projectTitle,
         projectDescription,
         builder,

@@ -3,6 +3,7 @@ pragma solidity ^0.8.20;
 
 contract SmartPayConstruction {
     string public agencyId = "agency";
+    uint256 next_project_id = 1;
 
 //This struc is used to store the information about the stage of the project
     struct Stage {
@@ -24,7 +25,7 @@ contract SmartPayConstruction {
     */
 // This struct is used to store the information about the project
     struct Project {
-        string project_id;
+        uint256 project_id;
         string name;
         string description;
         string client_id;
@@ -37,8 +38,8 @@ contract SmartPayConstruction {
         Stage[] stages; // Modificado para array em vez de mapping
     }
 
-    mapping(string => Project) public projects;
-    string[] public projectIds;
+    mapping(uint256 => Project) public projects;
+    uint256[] public projectIds;
 // This event is used to notify when a new project is created and c
 
     event StageAdded(uint256 projectId, uint256 stageId, string description, uint256 value);
@@ -52,7 +53,6 @@ contract SmartPayConstruction {
  * list of stages.
 */
     function createProject(
-        string memory _project_id,
         string memory _name,
         string memory _description,
         string memory _client_id,
@@ -60,11 +60,11 @@ contract SmartPayConstruction {
         uint256 _startDate,
         uint256 _endDate,
         Stage[] memory _stages
-    ) external {
-        Project storage p = projects[_project_id];
+    ) external returns (uint256) {
+        Project storage p = projects[next_project_id];
         p.name = _name;
         p.description = _description;
-        p.project_id = _project_id;
+        p.project_id = next_project_id;
         p.client_id = _client_id;
         p.contractor = _contractor;
         p.creationDate = block.timestamp;
@@ -72,7 +72,9 @@ contract SmartPayConstruction {
         p.endDate = _endDate;
         p.closed = false;
         p.actualCompletionDate = 0;
-        projectIds.push(_project_id);
+        projectIds.push(next_project_id);
+
+        next_project_id = next_project_id + 1;
 
         for (uint256 i = 0; i < _stages.length; i++) {
             p.stages.push(_stages[i]);
@@ -82,6 +84,8 @@ contract SmartPayConstruction {
             //when all the entities that are allowed to valdiate validate the stage
             p.stages[i].validators_ids.push(_contractor);
         }
+        
+        return p.project_id;
     }
 
 /**
@@ -91,7 +95,7 @@ contract SmartPayConstruction {
  * by the createProject function.
 */
 
-    function getStageById(string memory projectId, string memory stageId)
+    function getStageById(uint256 projectId, string memory stageId)
         public
         view
         returns (Stage memory s, bool found, uint256)
@@ -114,7 +118,7 @@ contract SmartPayConstruction {
  * Returns the number of phases in a project.
  * Useful for getting an overview of the size and complexity of a project.
 */
-    function getStagesCount(string memory projectId) external view returns (uint256) {
+    function getStagesCount(uint256 projectId) external view returns (uint256) {
         return projects[projectId].stages.length;
     }
 
@@ -123,7 +127,7 @@ contract SmartPayConstruction {
  * Ensures that only authorized validators can validate phases, maintaining the integrity of the validation process.
 */
     function isStageValidatedByValidator(
-        string memory _project_id,
+        uint256 _project_id,
         string memory _stage_id,
         string memory _validator_id
     ) public view returns (bool) {
@@ -143,7 +147,7 @@ contract SmartPayConstruction {
  * validators can validate.
 */
     function isValidatorAllowedToValidate(
-        string memory _project_id,
+        uint256 _project_id,
         string memory _stage_id,
         string memory _validator_id
     ) public view returns (bool) {
@@ -161,7 +165,7 @@ contract SmartPayConstruction {
  * Adds a validator to a phase.
  * Allows for expansion of the list of validators, ensuring there are enough validators to validate a phase.
 */
-    function addValidator(string memory _project_id, string memory _stage_id, string memory _validator_id) public {
+    function addValidator(uint256 _project_id, string memory _stage_id, string memory _validator_id) public {
         Project storage _project = projects[_project_id];
         (,, uint256 stageIndex) = getStageById(_project_id, _stage_id);
 
@@ -179,14 +183,14 @@ contract SmartPayConstruction {
  * Checks if there are enough validators to validate a phase.
  * Ensures that a phase has enough validators before allowing validations, ensuring the integrity of the process.
 */
-    function isThereEnoughValidators(string memory _project_id, string memory _stage_id) public view returns (bool) {
+    function isThereEnoughValidators(uint256 _project_id, string memory _stage_id) public view returns (bool) {
         return getTotalValidators(_project_id, _stage_id) >= getMaxTotalValidators(_project_id, _stage_id);
     }
 /**
  * Adds multiple validators to a phase.
  * Facilitates bulk addition of validators, speeding up the validator setup process.
 */
-    function addValidators(string memory _project_id, string memory _stage_id, string[] memory _validators_ids)
+    function addValidators(uint256 _project_id, string memory _stage_id, string[] memory _validators_ids)
         public
     {
         for (uint256 i = 0; i < _validators_ids.length; i++) {
@@ -197,7 +201,7 @@ contract SmartPayConstruction {
  * Checks whether a validator has already been added to a phase.
  * Avoids duplication of validators, ensuring the efficiency of the validation process.
 */
-    function validatorWasAlreadyAdded(string memory _project_id, string memory _stage_id, string memory _validator_id)
+    function validatorWasAlreadyAdded(uint256 _project_id, string memory _stage_id, string memory _validator_id)
         public
         view
         returns (bool)
@@ -217,7 +221,7 @@ contract SmartPayConstruction {
  * Returns the list of validator IDs for a phase.
  * Provides information about the validators in a phase, essential for audits and verifications.
 */
-    function getValidatorsIds(string memory _project_id, string memory _stage_id)
+    function getValidatorsIds(uint256 _project_id, string memory _stage_id)
         public
         view
         returns (string[] memory)
@@ -230,7 +234,7 @@ contract SmartPayConstruction {
  * Returns the total number of validations for a phase.
  * Used to monitor the validation progress of a phase, ensuring that all required validations are performed.
 */
-    function getTotalValidators(string memory _project_id, string memory _stage_id) public view returns (uint256) {
+    function getTotalValidators(uint256 _project_id, string memory _stage_id) public view returns (uint256) {
         (Stage memory _stage,,) = getStageById(_project_id, _stage_id);
         return _stage.validations.length;
     }
@@ -239,7 +243,7 @@ contract SmartPayConstruction {
  * Sets the limit of validations required to complete a phase, ensuring that all validations are performed 
  * before proceeding.
 */
-    function getMaxTotalValidators(string memory _project_id, string memory _stage_id) public view returns (uint256) {
+    function getMaxTotalValidators(uint256 _project_id, string memory _stage_id) public view returns (uint256) {
         (Stage memory _stage,,) = getStageById(_project_id, _stage_id);
         return _stage.total_validators;
     }
@@ -248,7 +252,7 @@ contract SmartPayConstruction {
  * Adds a new phase to an existing project.
  * Allows you to expand a project with new phases, essential for evolving projects. 
 */
-    function addStage(string memory projectId, Stage memory _stage) external {
+    function addStage(uint256 projectId, Stage memory _stage) external {
         projects[projectId].stages.push(_stage);
     }
 
@@ -263,7 +267,7 @@ contract SmartPayConstruction {
  * Validates a phase by a validator.
  * Updates the validation status of a phase, essential for the progress of the project.
 */
-    function validateStage(string memory _project_id, string memory _stage_id, string memory _validator_id) external {
+    function validateStage(uint256 _project_id, string memory _stage_id, string memory _validator_id) external {
         Stage storage _stage;
 
         (,, uint256 stageIndex) = getStageById(_project_id, _stage_id);
@@ -300,7 +304,7 @@ contract SmartPayConstruction {
  * Returns all project IDs.
  * Provides an overview of all existing projects, useful for management and auditing.
 */
-    function getAllProjectIds() external view returns (string[] memory) {
+    function getAllProjectIds() external view returns (uint256[] memory) {
         return projectIds;
     }
 /**
@@ -313,6 +317,10 @@ contract SmartPayConstruction {
             _projects[i] = projects[projectIds[i]];
         }
         return _projects;
+    }
+    
+    function getProjectById(uint256 id) external view returns (Project memory) {
+        return projects[id];
     }
 
 /**
